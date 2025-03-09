@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: scpi-invest-plus-notification
+    version: 1.0.0
+
+server:
+  port: 8082
+
