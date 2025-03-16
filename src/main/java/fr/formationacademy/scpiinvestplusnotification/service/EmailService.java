@@ -2,7 +2,9 @@ package fr.formationacademy.scpiinvestplusnotification.service;
 
 import fr.formationacademy.scpiinvestplusnotification.dto.EmailDtoIn;
 import fr.formationacademy.scpiinvestplusnotification.enums.BodyType;
+import fr.formationacademy.scpiinvestplusnotification.globalExceptionHandler.GlobalException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.*;
@@ -17,7 +19,7 @@ public class EmailService {
         this.sesClient = SesClient.builder().build();
     }
 
-    public void sendEmail(EmailDtoIn email) {
+    public void sendEmail(EmailDtoIn email) throws GlobalException {
         log.info("Preparing to send email to {}", email.getTo());
 
         Content content = Content.builder()
@@ -54,7 +56,7 @@ public class EmailService {
             SendEmailResponse response = sesClient.sendEmail(request);
             log.info("Email sent successfully! Message ID: {}", response.messageId());
         } catch (SesException e) {
-            log.error("Failed to send email to {}: {}", email.getTo(), e.awsErrorDetails().errorMessage(), e);
+            throw new GlobalException(HttpStatus.valueOf(e.statusCode()), e.getMessage());
         }
     }
 }

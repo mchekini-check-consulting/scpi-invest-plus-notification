@@ -1,6 +1,7 @@
 package fr.formationacademy.scpiinvestplusnotification.resource;
 
 import fr.formationacademy.scpiinvestplusnotification.dto.EmailDtoIn;
+import fr.formationacademy.scpiinvestplusnotification.globalExceptionHandler.GlobalException;
 import fr.formationacademy.scpiinvestplusnotification.service.EmailService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ public class EmailResource {
     }
 
     @PostMapping("send")
-    public ResponseEntity<?> sendEmail(@Valid @RequestBody EmailDtoIn email) {
+    public ResponseEntity<?> sendEmail(@Valid @RequestBody EmailDtoIn email) throws GlobalException {
         this.emailService.sendEmail(email);
         return ResponseEntity.ok("Email sent successfully to " + email.getTo());
     }
