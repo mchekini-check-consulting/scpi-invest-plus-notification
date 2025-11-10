@@ -21,6 +21,8 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "{{.Values.application.environment }}"
+            - name: AWS_REGION
+              value: us-east-1
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
