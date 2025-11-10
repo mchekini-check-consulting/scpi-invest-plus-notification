@@ -3,8 +3,4 @@ spring:
     name: scpi-invest-plus-notification
     version: 1.0.0
 
-aws:
-  region: us-east-1
-
-
 
