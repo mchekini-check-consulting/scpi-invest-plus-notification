@@ -21,9 +21,6 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "{{.Values.application.environment }}"
-          envFrom:
-            - secretRef:
-                name: aws-ses-credentials
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
